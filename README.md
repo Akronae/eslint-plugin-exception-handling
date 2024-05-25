@@ -1,3 +1,36 @@
+# eslint-plugin-exception-handling
+
+Ensures that you are handling exceptions in your code.
+
+# Installation
+
+```bash
+yarn add -D eslint-plugin-exception-handling
+```
+
+# Usage
+
+Sample `eslint.config.js`:
+
+```js
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import { plugin as ex } from "eslint-plugin-exception-handling";
+
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  { plugins: { ex }, rules: { "ex/no-unhandled": "error" } }
+);
+```
+
+# Limitations & Caveats
+
+- This plugin only checks for functions that might throw exceptions. It does not check for functions that might return a rejected promise.
+- Currently, only user-defined functions are checked. This means that built-in functions that might throw exceptions are not yet linted. I'm working on a feature for that, but it's quite a grind to list all the built-in functions that might throw exceptions. If you want to help feel free to open a PR.
+
 <!-- begin auto-generated rules list -->
 
 | Name                                       | Description                                               |
