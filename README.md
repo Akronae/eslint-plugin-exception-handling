@@ -2,6 +2,8 @@
 
 Ensures that you are handling exceptions in your code.
 
+![image](https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/3503f39b-459a-45e1-8037-8137bf164292)
+
 # Installation
 
 ```bash
