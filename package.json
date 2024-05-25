@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-exception-handling",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "💣 Lints unhandled functions that might throw errors. For JavaScript/TypeScript eslint.",
   "author": {
     "email": "alexandre@daubricourt.com",
@@ -10,6 +10,16 @@
     "type": "git",
     "url": "https://github.com/Akronae/eslint-plugin-exception-handling.git"
   },
+  "keywords": [
+    "eslint",
+    "plugin",
+    "exception",
+    "handling",
+    "error",
+    "throw",
+    "try",
+    "catch"
+  ],
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -31,6 +41,9 @@
   "imports": {
     "@": "./"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "pkgroll",
     "docs": "yarn build && eslint-doc-generator --init-rule-docs"
