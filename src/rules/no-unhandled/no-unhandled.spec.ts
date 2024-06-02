@@ -51,3 +51,18 @@ await testFile(
   ]
 );
 await testFile("src/rules/no-unhandled/tests/module-ok.ts", [rule.name], []);
+await testFile("src/rules/no-unhandled/tests/recursive-ok.ts", [rule.name], []);
+await testFile(
+  "src/rules/no-unhandled/tests/recursive-err.ts",
+  [rule.name],
+  [
+    {
+      messageId: "noUnhandled",
+      line: 15,
+    },
+    {
+      messageId: "noUnhandled",
+      line: 16,
+    },
+  ]
+);
