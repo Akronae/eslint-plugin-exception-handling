@@ -1,0 +1,9 @@
+uses: Makepad-fr/auto-release-on-version-bump-actionp@v1.0.0
+with:
+  token: ${{ secrets.GITHUB_TOKEN }}
+  name: "$newVersion"
+  body: "✨ New release $newVersion"
+  draft: "false"
+  pre-release: "auto"
+  generate-release-note: "true"
+  tag-name: "$newVersion"
