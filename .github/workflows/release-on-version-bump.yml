@@ -20,6 +20,7 @@ jobs:
           generate-release-note: "true"
           tag-name: "$newVersion"
   publish-on-release:
+    needs: release-on-version-bump
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
