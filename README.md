@@ -4,7 +4,13 @@
 <h1 align="center">
 	<sup>eslint-plugin-exception-handling</sup>
 	<br>
-	<a href="https://npm.im/eslint-plugin-exception-handling"><img src="https://badgen.net/npm/v/eslint-plugin-exception-handling"></a> <a href="https://npm.im/eslint-plugin-exception-handling"><img src="https://badgen.net/npm/dm/eslint-plugin-exception-handling"></a>
+  <h3 align="center">
+    <sup>💣 Lints unhandled functions that might throw errors & ensure best practices. For JavaScript/TypeScript eslint.</sup>
+  </h3>
+  <br/>
+  <p align="center">
+	  <a href="https://npm.im/eslint-plugin-exception-handling"><img src="https://badgen.net/npm/v/eslint-plugin-exception-handling"></a> <a href="https://npm.im/eslint-plugin-exception-handling"><img src="https://badgen.net/npm/dm/eslint-plugin-exception-handling"></a>
+  </p>
 </h1>
 
 ![image](https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/f77dd81a-09c5-4f41-a3f1-d017df1bb1b9)
