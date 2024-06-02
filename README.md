@@ -1,5 +1,5 @@
 <p align="center">
-	<img width="350" src="https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/43524856-1de6-4dac-982f-47323ea82ee4">
+	<img width="300" src="https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/43524856-1de6-4dac-982f-47323ea82ee4">
 </p>
 <h1 align="center">
 	<sup>eslint-plugin-exception-handling</sup>
@@ -67,10 +67,6 @@ export default [
 
 - This plugin only checks for functions that might throw exceptions. It does not check for functions that might return a rejected promise.
 - Currently, only user-defined functions are checked. This means that built-in functions that might throw exceptions are not yet linted. I'm working on a feature for that, but it's quite a grind to list all the built-in functions that might throw exceptions. If you want to help feel free to open a PR.
-
-# TODO
-
-- Add an option to only lint if there is no function further up the stack with no try-catch, instead of linting if the direct calling function has no try-catch
 
 # Rules
 
