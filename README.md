@@ -55,8 +55,10 @@ export default [
 
 <!-- begin auto-generated rules list -->
 
-| Name                                       | Description                                               |
-| :----------------------------------------- | :-------------------------------------------------------- |
-| [no-unhandled](docs/rules/no-unhandled.md) | Enforce handling of functions that might throw exceptions |
+| Name                                             | Description                                                                                                                                                                                                   |
+| :----------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [might-throw](docs/rules/might-throw.md)         | Warns about function calls that might throw exceptions.                                                                                                                                                       |
+| [no-unhandled](docs/rules/no-unhandled.md)       | Warns about function calls that might throw exceptions and are not handled at all further up the stack.                                                                                                       |
+| [use-error-cause](docs/rules/use-error-cause.md) | On `Error` re-thrown, forces the use of `cause` property in order to preserve stack traces. See: [Error: cause](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause) |
 
 <!-- end auto-generated rules list -->

@@ -46,7 +46,8 @@
   ],
   "scripts": {
     "build": "pkgroll",
-    "docs": "yarn build && eslint-doc-generator --init-rule-docs"
+    "test": "vitest run --reporter verbose",
+    "docs": "yarn build && eslint-doc-generator && eslint-doc-generator --init-rule-docs && eslint-doc-generator"
   },
   "dependencies": {
     "@types/eslint": "^8.56.10",
@@ -55,12 +56,14 @@
     "eslint": "^9.3.0"
   },
   "devDependencies": {
+    "@types/node": "^20.12.12",
     "@typescript-eslint/parser": "^7.9.0",
     "@typescript-eslint/rule-tester": "^7.9.0",
     "eslint-doc-generator": "^1.7.1",
     "pkgroll": "^2.1.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.9.0",
+    "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0"
   }
 }
