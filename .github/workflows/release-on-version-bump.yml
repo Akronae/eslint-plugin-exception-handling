@@ -1,7 +1,9 @@
+name: Create a new release on `package.json#version` bump
+
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   publish:

@@ -1,7 +1,9 @@
-name: Publish Package to npmjs
+name: Publish Package to yarn
+
 on:
   release:
     types: [published]
+
 jobs:
   build:
     runs-on: ubuntu-latest
