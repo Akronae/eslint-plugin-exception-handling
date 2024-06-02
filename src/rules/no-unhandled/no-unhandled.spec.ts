@@ -50,3 +50,4 @@ await testFile(
     },
   ]
 );
+await testFile("src/rules/no-unhandled/tests/module-ok.ts", [rule.name], []);

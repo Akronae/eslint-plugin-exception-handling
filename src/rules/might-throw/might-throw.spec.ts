@@ -25,3 +25,4 @@ await testFile(
 );
 
 await testFile("src/rules/might-throw/tests/import-ok.ts", [rule.name], []);
+await testFile("src/rules/might-throw/tests/module-ok.ts", [rule.name], []);

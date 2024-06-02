@@ -15,6 +15,7 @@ export function resolveImportedFunc(
   impt: TSESTree.ImportDeclaration
 ) {
   const importPath = getImportDeclarationPath(context, impt);
+  if (importPath.startsWith("./node_modules")) return;
   const content = readFileSync(importPath, "utf-8");
   const parsed = parse(content, context);
   const identifierInParsed = findIdentifiersInChildren(
