@@ -1,6 +1,6 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
-import { isMemberExpression } from "@/src/utils";
+import { isMemberExpression } from "@/src/utils/ast-guards";
 
 export function getCallExprId(called: TSESTree.CallExpression) {
   if (isIdentifier(called.callee)) {

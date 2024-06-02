@@ -1,13 +1,11 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import {
   isFunctionDeclaration,
-  isIdentifier,
   isImportDeclaration,
-  isMemberExpression,
-} from "@/src/utils";
+} from "@/src/utils/ast-guards";
 import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
-import { findIdentifierInParents } from "../utils/find-identifier-in-parents";
-import { resolveImportedFunc } from "../utils/resolve-imported-func";
+import { findIdentifierInParents } from "@/src/utils/find-identifier-in-parents";
+import { resolveImportedFunc } from "@/src/utils/resolve-imported-func";
 
 export function resolveFunc(
   id: TSESTree.Identifier,

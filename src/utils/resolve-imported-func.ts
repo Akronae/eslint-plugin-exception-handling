@@ -1,14 +1,14 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import {
-  findInParent,
   isExportNamedDeclaration,
   isFunctionDeclaration,
-} from "@/src/utils";
+} from "@/src/utils/ast-guards";
 import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
-import { parse } from "../utils/parse";
-import { findIdentifiersInChildren } from "../utils/find-identifiers-in-children";
+import { parse } from "@/src/utils/parse";
+import { findIdentifiersInChildren } from "@/src/utils/find-identifiers-in-children";
 import { readFileSync } from "fs";
-import { getImportDeclarationPath } from "./get-import-declaration-path";
+import { getImportDeclarationPath } from "@/src/utils/get-import-declaration-path";
+import { findInParent } from "@/src/utils/find-in-parent";
 
 export function resolveImportedFunc(
   context: RuleContext<string, unknown[]>,

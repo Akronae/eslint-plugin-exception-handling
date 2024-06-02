@@ -9,7 +9,7 @@ import {
   isProgram,
   isVariableDeclaration,
   isVariableDeclarator,
-} from "@/src/utils";
+} from "@/src/utils/ast-guards";
 
 export const findIdentifiersInChildren = (
   name: string,
