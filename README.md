@@ -1,8 +1,17 @@
-# eslint-plugin-exception-handling
-
-10kB possibly unhandled exceptions linter.
+<p align="center">
+	<img width="350" src="https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/43524856-1de6-4dac-982f-47323ea82ee4">
+</p>
+<h1 align="center">
+	<sup>eslint-plugin-exception-handling</sup>
+	<br>
+	<a href="https://npm.im/eslint-plugin-exception-handling"><img src="https://badgen.net/npm/v/eslint-plugin-exception-handling"></a> <a href="https://npm.im/eslint-plugin-exception-handling"><img src="https://badgen.net/npm/dm/eslint-plugin-exception-handling"></a>
+</h1>
 
 ![image](https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/f77dd81a-09c5-4f41-a3f1-d017df1bb1b9)
+
+| no-unhandled                                                                                                                      | might-throw                                                                                                                      | use-error-cause                                                                                                            |
+| --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![no-unhandled](https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/a5a1e70a-15f6-4e2b-b585-54846e9dc3ef) | ![might-throw](https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/26ee8fb8-bd0e-4b72-bb3f-624635db9b0d) | ![cause](https://github.com/Akronae/eslint-plugin-exception-handling/assets/17302866/f813c112-2f6a-49e7-954c-cace2819d5e8) |
 
 # Installation
 
