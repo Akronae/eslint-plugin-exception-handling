@@ -1,11 +1,12 @@
 name: Publish Package to yarn
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*"
 
 jobs:
-  build:
+  publish-on-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
