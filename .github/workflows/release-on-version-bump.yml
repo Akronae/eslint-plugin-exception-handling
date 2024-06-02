@@ -9,7 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: Makepad-fr/auto-release-on-version-bump-actionp@v1.0.0
+      - uses: Makepad-fr/auto-release-on-version-bump-action@0.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: "$newVersion"
