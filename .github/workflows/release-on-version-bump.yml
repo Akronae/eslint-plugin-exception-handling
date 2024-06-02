@@ -1,4 +1,4 @@
-name: Create a new release on `package.json#version` bump
+name: Release & publish on `package.json#version` bump
 
 on:
   push:
@@ -19,3 +19,17 @@ jobs:
           pre-release: "auto"
           generate-release-note: "true"
           tag-name: "$newVersion"
+  publish-on-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: yarn
+      - run: yarn build
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
