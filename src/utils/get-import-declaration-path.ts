@@ -19,8 +19,8 @@ function cleanTsConfig(content: string) {
 
 function resolveTSAlias(tsconfigpath: string, to: string, cwd: string) {
   const tsconfig = readFileSync(tsconfigpath, "utf-8");
-  const aliases = JSON.parse(cleanTsConfig(tsconfig)).compilerOptions
-    .paths as Record<string, string[]>;
+  const aliases = (JSON.parse(cleanTsConfig(tsconfig)).compilerOptions
+    .paths ?? {}) as Record<string, string[]>;
 
   let res = Object.entries(aliases)
     // sorting by longest - most qualified - alias
