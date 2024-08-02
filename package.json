@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-exception-handling",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "💣 Lints unhandled functions that might throw errors. For JavaScript/TypeScript eslint.",
   "author": {
     "email": "alexandre@daubricourt.com",
@@ -46,7 +46,7 @@
   ],
   "scripts": {
     "build": "pkgroll",
-    "test": "vitest run --reporter verbose",
+    "test": "yarn build && vitest run --reporter verbose",
     "docs": "yarn build && eslint-doc-generator && eslint-doc-generator --init-rule-docs && eslint-doc-generator"
   },
   "dependencies": {
