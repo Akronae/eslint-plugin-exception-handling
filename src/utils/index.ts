@@ -10,5 +10,4 @@ export * from "./get-import-declaration-path";
 export * from "./infer-guard-type";
 export * from "./parse";
 export * from "./resolve-func";
-export * from "./resolve-imported-func";
 export * from "./test-file";

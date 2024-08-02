@@ -8,6 +8,12 @@ export function isFunctionDeclaration(
   return node != null && node.type === AST_NODE_TYPES.FunctionDeclaration;
 }
 
+export function isMethodDefinition(
+  node: Typed
+): node is TSESTree.MethodDefinition {
+  return node != null && node.type === AST_NODE_TYPES.MethodDefinition;
+}
+
 export function isMemberExpression(
   node: Typed
 ): node is TSESTree.MemberExpression {
@@ -68,6 +74,12 @@ export function isIdentifier(node: Typed): node is TSESTree.Identifier {
   return node != null && node.type === AST_NODE_TYPES.Identifier;
 }
 
+export function isPrivateIdentifier(
+  node: Typed
+): node is TSESTree.PrivateIdentifier {
+  return node != null && node.type === AST_NODE_TYPES.PrivateIdentifier;
+}
+
 export function isCatchClause(node: Typed): node is TSESTree.CatchClause {
   return node != null && node.type === AST_NODE_TYPES.CatchClause;
 }
@@ -84,4 +96,10 @@ export function isObjectExpression(
 
 export function isProperty(node: Typed): node is TSESTree.Property {
   return node != null && node.type === AST_NODE_TYPES.Property;
+}
+
+export function isClassDeclaration(
+  node: Typed
+): node is TSESTree.ClassDeclaration {
+  return node != null && node.type === AST_NODE_TYPES.ClassDeclaration;
 }

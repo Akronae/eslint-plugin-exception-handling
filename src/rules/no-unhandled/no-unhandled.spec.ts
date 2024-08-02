@@ -51,6 +51,16 @@ await testFile(
   ]
 );
 await testFile("src/rules/no-unhandled/tests/module-ok.ts", [rule.name], []);
+await testFile(
+  "src/rules/no-unhandled/tests/private-identifier-ok.ts",
+  [rule.name],
+  []
+);
+await testFile(
+  "src/rules/no-unhandled/tests/private-identifier-err.ts",
+  [rule.name],
+  []
+);
 await testFile("src/rules/no-unhandled/tests/recursive-ok.ts", [rule.name], []);
 await testFile(
   "src/rules/no-unhandled/tests/recursive-err.ts",

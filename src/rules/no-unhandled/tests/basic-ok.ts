@@ -1,3 +1,5 @@
+import { throwingFunc } from "./throwing-func";
+
 const x = 5;
 let y = "abc123";
 function myFunction() {}
@@ -43,6 +45,10 @@ try {
   e();
 } catch (e) {
   console.error(e);
+}
+
+function h() {
+  throwingFunc();
 }
 
 export {};

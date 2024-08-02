@@ -12,6 +12,7 @@ import {
   resolveFunc,
   getCallExprId,
   isCatchClause,
+  isMethodDefinition,
 } from "@/src/utils";
 import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import { createRule } from "@/src/rules/create-rule";
@@ -46,8 +47,9 @@ const rule = createRule({
 
         if (throws) {
           const parentFunction = findInParent(called, isFunctionDeclaration);
+          const parentMethod = findInParent(called, isMethodDefinition);
           const id = findInChildren(called, isIdentifier);
-          if (!parentFunction?.id) {
+          if (!parentFunction?.id && !parentMethod?.key) {
             context.report({
               node: called,
               messageId: "noUnhandled",
@@ -63,7 +65,7 @@ const rule = createRule({
 });
 
 function checkfunc(
-  node: TSESTree.Identifier,
+  node: TSESTree.Identifier | TSESTree.PrivateIdentifier,
   context: RuleContext<string, unknown[]>
 ): boolean {
   const try_ = findInParent(node, isTryStatement);
