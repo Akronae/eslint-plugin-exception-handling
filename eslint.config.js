@@ -39,6 +39,7 @@ export default tseslint.config(
       ],
       "@typescript-eslint/no-floating-promises": ["error"],
       "@typescript-eslint/no-unused-expressions": "error",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   }
 );
