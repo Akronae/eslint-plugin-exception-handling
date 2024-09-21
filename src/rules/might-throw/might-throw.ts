@@ -1,15 +1,8 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
-import {
-  findInParent,
-  isFunctionDeclaration,
-  isThrowStatement,
-  isTryStatement,
-} from "@/src/utils";
-import { getFunctionId } from "../../utils/get-function-id";
-import { resolveFunc } from "../../utils/resolve-func";
-import { getCallExprId } from "../../utils/get-call-expr-id";
-import { findInChildren } from "../../utils/find-in-children";
-import { createRule } from "../create-rule";
+import { findInParent, isFunctionDeclaration } from "@/src/utils";
+import { getFunctionId } from "@/src/utils/get-function-id";
+import { getCallExprId } from "@/src/utils/get-call-expr-id";
+import { createRule } from "@/src/rules/create-rule";
+import { canFuncThrow } from "@/src/rules/no-unhandled";
 
 const name = "might-throw";
 const rule = createRule({
@@ -43,21 +36,16 @@ const rule = createRule({
       CallExpression(node) {
         const id = getCallExprId(node);
         if (!id) return;
-        const fun = resolveFunc(id, context);
-        if (!fun?.func) return;
-        const throwNode = findInChildren(fun.func, isThrowStatement);
-        if (throwNode) {
-          const tryNode = findInParent(node, isTryStatement);
-          if (tryNode) return;
+        const throwing = canFuncThrow(id, context);
+        if (!throwing) return;
 
-          context.report({
-            node,
-            messageId: "mightThrow",
-            data: {
-              name: id.name,
-            },
-          });
-        }
+        context.report({
+          node,
+          messageId: "mightThrow",
+          data: {
+            name: id.name,
+          },
+        });
       },
     };
   },

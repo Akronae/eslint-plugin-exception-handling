@@ -9,7 +9,7 @@ export function resolveClass(
   context: RuleContext<string, unknown[]>
 ) {
   const resolved = resolveId(id, context);
-  if (!resolved) return;
+  if (!resolved?.id) return;
   const class_ = findInParent(resolved.id, isClassDeclaration);
   if (!class_) return;
   return { class: class_, context: resolved.context };

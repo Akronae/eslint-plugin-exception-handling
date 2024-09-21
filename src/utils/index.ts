@@ -6,7 +6,7 @@ export * from "./find-in-children";
 export * from "./find-in-parent";
 export * from "./get-call-expr-id";
 export * from "./get-function-id";
-export * from "./get-import-declaration-path";
+export * from "./get-import-declaration";
 export * from "./infer-guard-type";
 export * from "./parse";
 export * from "./resolve-func";

@@ -16,5 +16,5 @@ export function resolveId(
 
     return idInParsed;
   }
-  return { id: identifier, context };
+  return { id: identifier, module: null, protocol: null, context };
 }

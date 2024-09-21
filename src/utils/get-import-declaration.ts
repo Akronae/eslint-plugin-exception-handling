@@ -19,8 +19,8 @@ function cleanTsConfig(content: string) {
 
 function resolveTSAlias(tsconfigpath: string, to: string, cwd: string) {
   const tsconfig = readFileSync(tsconfigpath, "utf-8");
-  const aliases = (JSON.parse(cleanTsConfig(tsconfig)).compilerOptions
-    .paths ?? {}) as Record<string, string[]>;
+  const aliases = (JSON.parse(cleanTsConfig(tsconfig)).compilerOptions.paths ??
+    {}) as Record<string, string[]>;
 
   let res = Object.entries(aliases)
     // sorting by longest - most qualified - alias
@@ -46,7 +46,7 @@ function endsWithAny(str: string, arr: string[]) {
   return arr.some((ext) => str.endsWith(ext));
 }
 
-export function getImportDeclarationPath(
+export function getImportDeclaration(
   context: RuleContext<string, unknown[]>,
   impt: TSESTree.ImportDeclaration
 ) {
@@ -62,9 +62,13 @@ export function getImportDeclarationPath(
     }
 
     if (!to.startsWith(".")) {
+      const split = to.split(":");
+      if (!existsSync(to)) {
+        return { module: split.at(-1), protocol: split.at(-2) };
+      }
       // no relative path and no TS alias,
       // considering it as a node_module
-      return `./node_modules/${to}`;
+      return { path: `./node_modules/${to}`, module: to };
     }
   } else {
     res = path.resolve(path.dirname(from), to);
@@ -82,5 +86,5 @@ export function getImportDeclarationPath(
     }
   }
 
-  return res;
+  return { path: res, module: to };
 }

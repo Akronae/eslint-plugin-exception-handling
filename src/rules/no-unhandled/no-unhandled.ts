@@ -16,6 +16,7 @@ import {
 } from "@/src/utils";
 import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import { createRule } from "@/src/rules/create-rule";
+import { nativeThrowing } from "@/src/utils/native-throwing";
 
 const throwFunctions = new Set<string>();
 const scannedFunctions = new Set<string>();
@@ -43,7 +44,7 @@ const rule = createRule({
       CallExpression(called) {
         const id = getCallExprId(called);
         if (!id) return;
-        const throws = checkfunc(id, context);
+        const throws = canFuncThrow(id, context);
 
         if (throws) {
           const parentFunction = findInParent(called, isFunctionDeclaration);
@@ -64,7 +65,7 @@ const rule = createRule({
   },
 });
 
-function checkfunc(
+export function canFuncThrow(
   node: TSESTree.Identifier | TSESTree.PrivateIdentifier,
   context: RuleContext<string, unknown[]>
 ): boolean {
@@ -74,6 +75,14 @@ function checkfunc(
   }
 
   const res = resolveFunc(node, context);
+  if (res?.module) {
+    const found = nativeThrowing.some(
+      (x) => x.module === res.module && x.method === res.func.id?.name
+    );
+    if (found) {
+      return true;
+    }
+  }
   if (!res?.func) return false;
   return scanfunc(res.func, res.context);
 }
@@ -105,7 +114,7 @@ function scanfunc(
           return;
         }
 
-        throws = checkfunc(child.callee, context);
+        throws = canFuncThrow(child.callee, context);
         if (throws) {
           if (node.id) throwFunctions.add(getFunctionId(context, node.id));
           resolve(true);

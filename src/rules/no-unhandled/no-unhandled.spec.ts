@@ -10,7 +10,6 @@ await testFile(
     },
   ]
 );
-
 await testFile("src/rules/no-unhandled/tests/import-ok.ts", [rule.name], []);
 await testFile("src/rules/no-unhandled/tests/import-ok-2.ts", [rule.name], []);
 await testFile("src/rules/no-unhandled/tests/basic-ok.ts", [rule.name], []);
@@ -75,4 +74,19 @@ await testFile(
       line: 16,
     },
   ]
+);
+await testFile(
+  "src/rules/no-unhandled/tests/native-modules-err.ts",
+  [rule.name],
+  [
+    {
+      messageId: "noUnhandled",
+      line: 3,
+    },
+  ]
+);
+await testFile(
+  "src/rules/no-unhandled/tests/native-modules-ok.ts",
+  [rule.name],
+  []
 );

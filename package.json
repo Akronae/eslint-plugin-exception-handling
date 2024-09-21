@@ -47,7 +47,10 @@
   "scripts": {
     "build": "pkgroll",
     "test": "yarn build && vitest run --reporter verbose",
-    "docs": "yarn build && eslint-doc-generator && eslint-doc-generator --init-rule-docs && eslint-doc-generator"
+    "docs": "yarn build && eslint-doc-generator && eslint-doc-generator --init-rule-docs && eslint-doc-generator",
+    "v:major": "npm version major -m \"chore: bump major to %s\"",
+    "v:minor": "npm version minor -m \"chore: bump minor to %s\"",
+    "v:patch": "npm version patch -m \"chore: bump patch to %s\""
   },
   "dependencies": {
     "@types/eslint": "^8.56.10",

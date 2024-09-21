@@ -9,8 +9,13 @@ export function resolveFunc(
   context: RuleContext<string, unknown[]>
 ) {
   const resolved = resolveId(id, context);
-  if (!resolved) return;
+  if (!resolved?.id) return;
   const func = findInParent(resolved.id, isFunctionDeclaration);
   if (!func) return;
-  return { func, context: resolved.context };
+  return {
+    func,
+    module: resolved.module,
+    protocol: resolved.protocol,
+    context: resolved.context,
+  };
 }

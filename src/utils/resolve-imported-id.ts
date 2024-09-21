@@ -1,22 +1,35 @@
 import { TSESTree } from "@typescript-eslint/utils";
-import { isExportNamedDeclaration } from "@/src/utils/ast-guards";
+import { isExportNamedDeclaration, isIdentifier } from "@/src/utils/ast-guards";
 import { RuleContext, SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import { parse } from "@/src/utils/parse";
 import { findIdentifiersInChildren } from "@/src/utils/find-identifiers-in-children";
 import { readFileSync } from "fs";
-import { getImportDeclarationPath } from "@/src/utils/get-import-declaration-path";
+import { getImportDeclaration } from "@/src/utils/get-import-declaration";
+import { findInChildren } from "./find-in-children";
 
 export function resolveImportedId(
   context: RuleContext<string, unknown[]>,
   impt: TSESTree.ImportDeclaration
 ) {
-  const importPath = getImportDeclarationPath(context, impt);
-  if (importPath.startsWith("./node_modules")) return;
+  const imp = getImportDeclaration(context, impt);
+  if (!imp.path || imp.path.startsWith("./node_modules")) {
+    const id = impt.specifiers[0].local;
+
+    return {
+      id: findInChildren(
+        parse(`export function ${id.name}() {}`, context),
+        isIdentifier
+      ),
+      module: imp.module,
+      protocol: imp.protocol,
+      context,
+    };
+  }
   let content = "";
   try {
-    content = readFileSync(importPath, "utf-8");
+    content = readFileSync(imp.path, "utf-8");
   } catch (e) {
-    console.error(`Could not read file ${importPath}`);
+    console.error(`Could not read file ${imp}`);
     console.error(e);
     return;
   }
@@ -29,7 +42,7 @@ export function resolveImportedId(
 
   const ctxParsed = {
     ...context,
-    physicalFilename: importPath,
+    physicalFilename: imp.path,
     sourceCode: new SourceCode(content, parsed),
     parser: (context as any).parser,
     parserOptions: context.parserOptions,
@@ -41,5 +54,10 @@ export function resolveImportedId(
     settings: context.settings,
   };
 
-  return { id: identifierInParsed, context: ctxParsed };
+  return {
+    id: identifierInParsed,
+    module: imp.module,
+    protocol: imp.protocol,
+    context: ctxParsed,
+  };
 }
