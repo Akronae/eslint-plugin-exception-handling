@@ -1,7 +1,6 @@
 // @ts-check
 
 import tseslint from "typescript-eslint";
-import { plugin as ex } from "./dist/index.mjs";
 
 const ignores = [
   "node_modules",
@@ -19,7 +18,6 @@ const ignores = [
 export default tseslint.config(
   ...tseslint.configs.recommended.map((x) => ({ ...x, ignores })),
   {
-    plugins: { ex },
     languageOptions: {
       parserOptions: {
         parser: "@typescript-eslint/parser",
@@ -30,9 +28,6 @@ export default tseslint.config(
     files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
     ignores,
     rules: {
-      "ex/no-unhandled": "error",
-      "ex/might-throw": "warn",
-      "ex/use-error-cause": "warn",
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "_" },
