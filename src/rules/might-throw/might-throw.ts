@@ -2,7 +2,7 @@ import { findInParent, isFunctionDeclaration } from "@/src/utils";
 import { getFunctionId } from "@/src/utils/get-function-id";
 import { getCallExprId } from "@/src/utils/get-call-expr-id";
 import { createRule } from "@/src/rules/create-rule";
-import { canFuncThrow } from "@/src/rules/no-unhandled";
+import { canFuncThrow, canFuncThrowClear } from "@/src/utils/can-func-throw";
 
 const name = "might-throw";
 const rule = createRule({
@@ -19,6 +19,7 @@ const rule = createRule({
   },
   defaultOptions: [],
   create: (context) => {
+    canFuncThrowClear();
     const throwFunctions = new Set<string>();
 
     return {

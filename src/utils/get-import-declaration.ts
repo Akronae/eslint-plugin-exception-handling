@@ -1,7 +1,7 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
-import { existsSync, readFileSync } from "fs";
-import path from "path";
+import { existsSync, lstatSync, readFileSync } from "fs";
+import path, { dirname, join } from "path";
 
 function cleanTsConfig(content: string) {
   return (
@@ -22,7 +22,7 @@ function resolveTSAlias(tsconfigpath: string, to: string, cwd: string) {
   const aliases = (JSON.parse(cleanTsConfig(tsconfig)).compilerOptions.paths ??
     {}) as Record<string, string[]>;
 
-  let res = Object.entries(aliases)
+  const res = Object.entries(aliases)
     // sorting by longest - most qualified - alias
     .sort((a, b) => b[0].length - a[0].length)
     .find(
@@ -56,12 +56,20 @@ export function getImportDeclaration(
   let res: string | null = null;
 
   if (!to.startsWith(".")) {
-    const project = context.parserOptions.project;
-    if (project) {
-      to = resolveTSAlias(project.toString(), to, context.cwd);
+    let { project, tsconfigRootDir } = context.parserOptions;
+    if (project || tsconfigRootDir) {
+      if (project === true || !project) project = "./tsconfig.json";
+      if (Array.isArray(project)) project = project[0];
+      if (!tsconfigRootDir) tsconfigRootDir = context.cwd;
+      if (!lstatSync(tsconfigRootDir).isDirectory()) {
+        tsconfigRootDir = dirname(tsconfigRootDir);
+      }
+
+      to = resolveTSAlias(join(tsconfigRootDir, project), to, context.cwd);
+      res = to;
     }
 
-    if (!to.startsWith(".")) {
+    if (!to.startsWith(".") && !to.startsWith("/")) {
       const split = to.split(":");
       if (!existsSync(to)) {
         return { module: split.at(-1), protocol: split.at(-2) };
@@ -70,11 +78,11 @@ export function getImportDeclaration(
       // considering it as a node_module
       return { path: `./node_modules/${to}`, module: to };
     }
-  } else {
+  } else if (!to.startsWith("/")) {
     res = path.resolve(path.dirname(from), to);
   }
 
-  if (!res) throw new Error("Import path not resolved");
+  if (!res) throw new Error(`Import path '${to}' could not resolved`);
 
   if (!endsWithAny(res, codeExt)) {
     res += path.extname(from);

@@ -1,11 +1,15 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 import {
+  isArrowFunctionExpression,
   isBlockStatement,
+  isCallExpression,
   isExportNamedDeclaration,
+  isExpressionStatement,
   isFunctionDeclaration,
   isImportDeclaration,
   isImportSpecifier,
+  isMemberExpression,
   isProgram,
   isVariableDeclaration,
   isVariableDeclarator,
@@ -40,6 +44,16 @@ export const findIdentifiersInChildren = (
       identifiers.push(...findIdentifiersInChildren(name, node.body));
     } else if (isExportNamedDeclaration(node) && node.declaration) {
       identifiers.push(...findIdentifiersInChildren(name, [node.declaration]));
+    } else if (isArrowFunctionExpression(node)) {
+      identifiers.push(...findIdentifiersInChildren(name, [node.body]));
+    } else if (isExpressionStatement(node)) {
+      identifiers.push(...findIdentifiersInChildren(name, [node.expression]));
+    } else if (isCallExpression(node)) {
+      identifiers.push(...findIdentifiersInChildren(name, [...node.arguments]));
+    } else if (isMemberExpression(node)) {
+      identifiers.push(
+        ...findIdentifiersInChildren(name, [node.property, node.object])
+      );
     }
   }
 

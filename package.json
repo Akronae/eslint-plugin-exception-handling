@@ -25,27 +25,14 @@
   "engines": {
     "node": ">=20"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.cts",
-  "exports": {
-    "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
-    },
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    }
-  },
-  "imports": {
-    "@": "./"
-  },
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "files": [
-    "dist"
+    "dist/src"
   ],
   "scripts": {
-    "build": "pkgroll",
+    "build": "yarn rimraf dist && tsc && tsc-alias",
     "test": "yarn build && vitest run --reporter verbose",
     "docs": "yarn build && eslint-doc-generator && eslint-doc-generator --init-rule-docs && eslint-doc-generator",
     "v:major": "npm version major -m \"chore: bump major to %s\"",
@@ -53,17 +40,21 @@
     "v:patch": "npm version patch -m \"chore: bump patch to %s\""
   },
   "dependencies": {
-    "@types/eslint": "^8.56.10",
-    "@typescript-eslint/types": "^7.9.0",
-    "@typescript-eslint/utils": "^7.9.0",
     "eslint": "^9.3.0"
   },
   "devDependencies": {
+    "@types/eslint": "^9.6.1",
+    "@types/espree": "^10.1.0",
     "@types/node": "^20.12.12",
     "@typescript-eslint/parser": "^7.9.0",
     "@typescript-eslint/rule-tester": "^7.9.0",
+    "@typescript-eslint/types": "^7.9.0",
+    "@typescript-eslint/utils": "^7.9.0",
     "eslint-doc-generator": "^1.7.1",
-    "pkgroll": "^2.1.0",
+    "espree": "^10.1.0",
+    "rimraf": "^6.0.1",
+    "tsc": "^2.0.4",
+    "tsc-alias": "^1.8.10",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.9.0",
     "vite-tsconfig-paths": "^4.3.2",

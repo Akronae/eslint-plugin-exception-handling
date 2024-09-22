@@ -90,3 +90,14 @@ await testFile(
   [rule.name],
   []
 );
+await testFile(
+  "src/rules/no-unhandled/tests/alias-err.ts",
+  [rule.name],
+  [
+    {
+      messageId: "noUnhandled",
+      line: 54,
+    },
+  ]
+);
+await testFile("src/rules/no-unhandled/tests/alias-ok.ts", [rule.name], []);

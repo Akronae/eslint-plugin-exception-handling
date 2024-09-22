@@ -10,4 +10,3 @@ export * from "./get-import-declaration";
 export * from "./infer-guard-type";
 export * from "./parse";
 export * from "./resolve-func";
-export * from "./test-file";

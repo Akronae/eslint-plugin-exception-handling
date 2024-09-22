@@ -103,3 +103,15 @@ export function isClassDeclaration(
 ): node is TSESTree.ClassDeclaration {
   return node != null && node.type === AST_NODE_TYPES.ClassDeclaration;
 }
+
+export function isArrowFunctionExpression(
+  node: Typed
+): node is TSESTree.ArrowFunctionExpression {
+  return node != null && node.type === AST_NODE_TYPES.ArrowFunctionExpression;
+}
+
+export function isExpressionStatement(
+  node: Typed
+): node is TSESTree.ExpressionStatement {
+  return node != null && node.type === AST_NODE_TYPES.ExpressionStatement;
+}

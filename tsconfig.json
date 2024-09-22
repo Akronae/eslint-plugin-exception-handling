@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "target": "ES2022",
+    "target": "ESNext",
     "esModuleInterop": true,
     "declaration": true,
     "outDir": "./dist",
@@ -17,9 +17,13 @@
   },
   "include": [
     "src/**/*",
+    "scripts/**/*",
   ],
   "exclude": [
     "node_modules",
     "dist",
-  ]
+  ],
+  "tsc-alias": {
+    "resolveFullPaths": true
+  }
 }

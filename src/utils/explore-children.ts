@@ -8,10 +8,13 @@ export function exploreChildren<T>(
     _resolve: (_args: T) => void
   ) => void
 ): T | undefined {
+  const explored = new Set<TSESTree.Node>();
+
   const explore = (
     node: TSESTree.Node,
     parent?: TSESTree.Node
   ): T | undefined => {
+    // console.log({ node });
     let rtrn = null;
     predicate(node, parent, (args) => {
       rtrn = args;
@@ -27,11 +30,15 @@ export function exploreChildren<T>(
         if (Array.isArray(val)) {
           for (const v of val) {
             if (v.type) {
+              if (explored.has(v)) continue;
+              explored.add(v);
               const res = explore(v, node);
               if (res) return res;
             }
           }
         } else if (val.type) {
+          if (explored.has(val)) continue;
+          explored.add(val);
           const res = explore(val, node);
           if (res) return res;
         }

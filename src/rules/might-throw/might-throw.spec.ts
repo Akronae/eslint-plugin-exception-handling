@@ -1,4 +1,4 @@
-import { testFile } from "@/src/utils";
+import { testFile } from "@/src/utils/test-file";
 import rule from "./might-throw";
 
 await testFile(

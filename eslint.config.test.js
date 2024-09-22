@@ -1,7 +1,7 @@
 // @ts-check
 
 import tseslint from "typescript-eslint";
-import { plugin as ex } from "./dist/index.mjs";
+import { plugin as ex } from "./dist/src/index.js";
 import config from "./eslint.config.js";
 
 const ignores = [
