@@ -19,7 +19,7 @@ function cleanTsConfig(content: string) {
 
 function resolveTSAlias(tsconfigpath: string, to: string, cwd: string) {
   const tsconfig = readFileSync(tsconfigpath, "utf-8");
-  const aliases = (JSON.parse(cleanTsConfig(tsconfig)).compilerOptions.paths ??
+  const aliases = (JSON.parse(cleanTsConfig(tsconfig)).compilerOptions?.paths ??
     {}) as Record<string, string[]>;
 
   const res = Object.entries(aliases)
@@ -30,6 +30,7 @@ function resolveTSAlias(tsconfigpath: string, to: string, cwd: string) {
     );
 
   if (res) {
+    // eslint-disable-next-line prefer-const
     let [key, val] = res;
     key = key.replace(/\*$/, "");
     const firstVal = val[0].replace(/\*$/, "");
