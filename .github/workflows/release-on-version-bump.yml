@@ -16,6 +16,11 @@ jobs:
           node-version-file: ".nvmrc"
       - run: yarn
       - run: yarn test
+      - run: yarn build
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          always-auth: true
       - uses: Makepad-fr/auto-release-on-version-bump-action@0.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -25,7 +30,3 @@ jobs:
           pre-release: "auto"
           generate-release-note: "true"
           tag-name: "$newVersion"
-      - run: yarn build
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
