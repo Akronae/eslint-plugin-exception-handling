@@ -43,6 +43,7 @@
     "@types/eslint": "^9.6.1",
     "@types/espree": "^10.1.0",
     "@types/node": "^20.12.12",
+    "@types/react": "^18.3.12",
     "@typescript-eslint/parser": "^7.9.0",
     "@typescript-eslint/rule-tester": "^7.9.0",
     "@typescript-eslint/types": "^7.9.0",

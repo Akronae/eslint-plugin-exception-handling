@@ -91,9 +91,24 @@ export function getImportDeclaration(
 
   if (!existsSync(res)) {
     if (res.endsWith(".js")) {
-      res = res.replace(".js", ".ts");
+      res = findFileExtension(res.replace(".js", ""), [".jsx", ".ts", ".tsx"]);
+    } else if (res.endsWith(".jsx")) {
+      res = findFileExtension(res.replace(".jsx", ""), [".js", ".tsx", ".ts"]);
+    } else if (res.endsWith(".ts")) {
+      res = findFileExtension(res.replace(".ts", ""), [".tsx", ".js", ".jsx"]);
+    } else if (res.endsWith(".tsx")) {
+      res = findFileExtension(res.replace(".tsx", ""), [".ts", ".jsx", ".js"]);
     }
   }
 
   return { path: res, module: to };
+}
+
+function findFileExtension(extless: string, tries: string[]) {
+  for (const ext of tries) {
+    if (extless + ext) {
+      return extless + ext;
+    }
+  }
+  return null;
 }

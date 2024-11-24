@@ -1,22 +1,23 @@
 import { RuleContext, SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import { exploreChildren } from "./explore-children";
+import { SourceFile } from "typescript";
 
-function omitNullish<T extends {}>(obj: T): T {
+function omitNullish<T extends object>(obj: T): T {
   return Object.fromEntries(
     Object.entries(obj).filter(([, value]) => value != null)
   ) as T;
 }
 
 export function parse(
-  code: string,
+  source: SourceFile,
   context: RuleContext<string, unknown[]>
 ): SourceCode.Program {
   const opts = context.languageOptions;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const parsed = (opts.parser as any).parseForESLint(
-    code,
+    source.text,
     omitNullish({
       parser: opts.parserOptions,
+      filePath: source.fileName,
       loc: true,
       range: true,
       tokens: true,

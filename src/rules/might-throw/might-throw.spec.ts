@@ -55,3 +55,5 @@ await testFile(
   [rule.name],
   []
 );
+await testFile("src/rules/might-throw/tests/generic-ok.ts", [rule.name], []);
+await testFile("src/rules/might-throw/tests/tsx-ok.tsx", [rule.name], []);

@@ -6,6 +6,8 @@ import { findIdentifiersInChildren } from "@/src/utils/find-identifiers-in-child
 import { readFileSync } from "fs";
 import { getImportDeclaration } from "@/src/utils/get-import-declaration";
 import { findInChildren } from "./find-in-children";
+import ts from "typescript";
+const { createSourceFile, ScriptTarget } = ts;
 
 export function resolveImportedId(
   context: RuleContext<string, unknown[]>,
@@ -17,7 +19,14 @@ export function resolveImportedId(
 
     return {
       id: findInChildren(
-        parse(`export function ${id.name}() {}`, context),
+        parse(
+          createSourceFile(
+            "untitled.js",
+            `export function ${id.name}() {}`,
+            ScriptTarget.Latest
+          ),
+          context
+        ),
         isIdentifier
       ),
       module: imp.module,
@@ -33,7 +42,10 @@ export function resolveImportedId(
     console.error(e);
     return;
   }
-  const parsed = parse(content, context);
+  const parsed = parse(
+    createSourceFile(imp.path, content, ScriptTarget.Latest),
+    context
+  );
   const identifierInParsed = findIdentifiersInChildren(
     impt.specifiers[0].local.name,
     parsed.body
