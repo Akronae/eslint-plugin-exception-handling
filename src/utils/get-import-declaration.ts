@@ -106,7 +106,7 @@ export function getImportDeclaration(
 
 function findFileExtension(extless: string, tries: string[]) {
   for (const ext of tries) {
-    if (extless + ext) {
+    if (existsSync(extless + ext)) {
       return extless + ext;
     }
   }
