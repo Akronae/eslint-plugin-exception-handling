@@ -1,7 +1,7 @@
-import { TSESTree } from "@typescript-eslint/utils";
 import { isImportDeclaration } from "@/src/utils/ast-guards";
-import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import { findIdentifierInParents } from "@/src/utils/find-identifier-in-parents";
+import { TSESTree } from "@typescript-eslint/utils";
+import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import { resolveImportedId } from "./resolve-imported-id";
 
 export function resolveId(

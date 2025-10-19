@@ -13,6 +13,7 @@ await testFile(
 await testFile("src/rules/no-unhandled/tests/import-ok.ts", [rule.name], []);
 await testFile("src/rules/no-unhandled/tests/import-ok-2.ts", [rule.name], []);
 await testFile("src/rules/no-unhandled/tests/basic-ok.ts", [rule.name], []);
+await testFile("src/rules/no-unhandled/tests/basic-ok-2.ts", [rule.name], []);
 await testFile(
   "src/rules/no-unhandled/tests/basic-err.ts",
   [rule.name],
@@ -44,6 +45,15 @@ await testFile(
     {
       messageId: "noUnhandled",
     },
+    {
+      messageId: "noUnhandled",
+    },
+  ]
+);
+await testFile(
+  "src/rules/no-unhandled/tests/basic-err-4.ts",
+  [rule.name],
+  [
     {
       messageId: "noUnhandled",
     },
@@ -101,3 +111,8 @@ await testFile(
   ]
 );
 await testFile("src/rules/no-unhandled/tests/alias-ok.ts", [rule.name], []);
+await testFile(
+  "src/rules/no-unhandled/tests/array-destructuring-ok.ts",
+  [rule.name],
+  []
+);

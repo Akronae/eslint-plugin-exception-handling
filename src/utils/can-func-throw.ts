@@ -1,18 +1,18 @@
-import { TSESTree } from "@typescript-eslint/utils";
-import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 import {
+  exploreChildren,
+  findInChildren,
   findInParent,
+  getFunctionId,
   isCallExpression,
+  isCatchClause,
   isThrowStatement,
   isTryStatement,
-  findInChildren,
-  exploreChildren,
-  getFunctionId,
   resolveFunc,
-  isCatchClause,
 } from "@/src/utils";
-import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import { nativeThrowing } from "@/src/utils/native-throwing";
+import { TSESTree } from "@typescript-eslint/utils";
+import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
+import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
 const throwFunctions = new Set<string>();
 const scannedFunctions = new Set<string>();

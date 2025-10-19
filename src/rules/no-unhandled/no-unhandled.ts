@@ -1,13 +1,13 @@
-import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
+import { createRule } from "@/src/rules/create-rule";
 import {
-  findInParent,
-  isFunctionDeclaration,
   findInChildren,
+  findInParent,
   getCallExprId,
+  isFunctionDeclaration,
   isMethodDefinition,
 } from "@/src/utils";
-import { createRule } from "@/src/rules/create-rule";
 import { canFuncThrow, canFuncThrowClear } from "@/src/utils/can-func-throw";
+import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 
 const name = "no-unhandled";
 const rule = createRule({

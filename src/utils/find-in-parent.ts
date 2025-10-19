@@ -1,4 +1,5 @@
 import { TSESTree } from "@typescript-eslint/types";
+import { findInChildren } from "./find-in-children";
 import { InferGuardType } from "./infer-guard-type";
 
 export function findInParent<
@@ -11,8 +12,15 @@ export function findInParent<
 ): InferGuardType<F> | undefined {
   let parent: TSESTree.Node | undefined = node.parent;
   while (parent) {
-    if (predicate(parent) && (!filter || filter(parent as InferGuardType<F>))) {
-      return parent as InferGuardType<F>;
+    const found = findInChildren(parent, predicate, (x) => {
+      return (
+        x.range[0] < node.range[0] &&
+        x.range[1] > node.range[1] &&
+        (!filter || filter(x as InferGuardType<F>))
+      );
+    });
+    if (found) {
+      return found;
     }
     parent = parent.parent;
   }

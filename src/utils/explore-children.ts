@@ -29,7 +29,7 @@ export function exploreChildren<T>(
       if (val && typeof val === "object") {
         if (Array.isArray(val)) {
           for (const v of val) {
-            if (v.type) {
+            if (v?.type) {
               if (explored.has(v)) continue;
               explored.add(v);
               const res = explore(v, node);
@@ -47,3 +47,22 @@ export function exploreChildren<T>(
   };
   return explore(node, node.parent);
 }
+
+// [
+//   "body",
+//   "params",
+//   "callee",
+//   "expression",
+//   "arguments",
+//   "block",
+//   "handler",
+//   "finalizer",
+//   "specifiers",
+//   "assertions",
+//   "argument",
+//   "property",
+//   "id",
+//   "object",
+//   "attributes",
+//   "declaration",
+// ];

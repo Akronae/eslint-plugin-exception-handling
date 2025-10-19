@@ -1,8 +1,8 @@
-import { TSESTree } from "@typescript-eslint/utils";
 import { isFunctionDeclaration } from "@/src/utils/ast-guards";
+import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
-import { resolveId } from "./resolve-id";
 import { findInParent } from "./find-in-parent";
+import { resolveId } from "./resolve-id";
 
 export function resolveFunc(
   id: TSESTree.Identifier | TSESTree.PrivateIdentifier,

@@ -1,12 +1,12 @@
-import { TSESTree } from "@typescript-eslint/utils";
 import { isExportNamedDeclaration, isIdentifier } from "@/src/utils/ast-guards";
-import { RuleContext, SourceCode } from "@typescript-eslint/utils/ts-eslint";
-import { parse } from "@/src/utils/parse";
 import { findIdentifiersInChildren } from "@/src/utils/find-identifiers-in-children";
-import { readFileSync } from "fs";
 import { getImportDeclaration } from "@/src/utils/get-import-declaration";
-import { findInChildren } from "./find-in-children";
+import { parse } from "@/src/utils/parse";
+import { TSESTree } from "@typescript-eslint/utils";
+import { RuleContext, SourceCode } from "@typescript-eslint/utils/ts-eslint";
+import { readFileSync } from "fs";
 import ts from "typescript";
+import { findInChildren } from "./find-in-children";
 const { createSourceFile, ScriptTarget } = ts;
 
 export function resolveImportedId(
@@ -49,7 +49,7 @@ export function resolveImportedId(
   const identifierInParsed = findIdentifiersInChildren(
     impt.specifiers[0].local.name,
     parsed.body
-  ).find((x) => isExportNamedDeclaration(x.parent.parent));
+  ).find((x) => isExportNamedDeclaration(x.parent?.parent));
   if (!identifierInParsed) return;
 
   const ctxParsed = {
