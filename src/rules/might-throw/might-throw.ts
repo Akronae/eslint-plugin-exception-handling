@@ -1,8 +1,8 @@
-import { findInParent, isFunctionDeclaration } from "@/src/utils";
-import { getFunctionId } from "@/src/utils/get-function-id";
-import { getCallExprId } from "@/src/utils/get-call-expr-id";
 import { createRule } from "@/src/rules/create-rule";
+import { findInParent, isFunctionDeclaration } from "@/src/utils";
 import { canFuncThrow, canFuncThrowClear } from "@/src/utils/can-func-throw";
+import { getCallExprId } from "@/src/utils/get-call-expr-id";
+import { getFunctionId } from "@/src/utils/get-function-id";
 
 const name = "might-throw";
 const rule = createRule({

@@ -1,5 +1,3 @@
-import { TSESTree } from "@typescript-eslint/utils";
-import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 import {
   isArrowFunctionExpression,
   isBlockStatement,
@@ -14,6 +12,8 @@ import {
   isVariableDeclaration,
   isVariableDeclarator,
 } from "@/src/utils/ast-guards";
+import { TSESTree } from "@typescript-eslint/utils";
+import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 
 export const findIdentifiersInChildren = (
   name: string,

@@ -6,7 +6,9 @@ export const findIdentifierInParents = (
   node: TSESTree.Node
 ): TSESTree.Identifier | null => {
   if (!node.parent) return null;
-  const ids = findIdentifiersInChildren(name, [node.parent]);
+  const ids = findIdentifiersInChildren(name, [node.parent]).filter(
+    (x) => x != node
+  );
   if (ids.length) {
     return ids[0];
   }

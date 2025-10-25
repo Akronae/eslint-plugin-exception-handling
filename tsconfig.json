@@ -3,10 +3,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "target": "ESNext",
-    "lib": [
-      "ESNext",
-      "DOM",
-    ],
+    "lib": ["ESNext", "DOM"],
     "esModuleInterop": true,
     "declaration": true,
     "outDir": "./dist",
@@ -14,20 +11,13 @@
     "jsx": "preserve",
     "strict": true,
     "baseUrl": "./",
+    "rootDir": "./",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
+      "@/*": ["./*"]
+    }
   },
-  "include": [
-    "src/**/*",
-    "scripts/**/*",
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-  ],
+  "include": ["src/**/*", "scripts/**/*"],
+  "exclude": ["node_modules", "dist"],
   "tsc-alias": {
     "resolveFullPaths": true
   }

@@ -14,7 +14,6 @@ export function exploreChildren<T>(
     node: TSESTree.Node,
     parent?: TSESTree.Node
   ): T | undefined => {
-    // console.log({ node });
     let rtrn = null;
     predicate(node, parent, (args) => {
       rtrn = args;
@@ -26,6 +25,7 @@ export function exploreChildren<T>(
         | TSESTree.Node
         | TSESTree.Node[]
         | undefined;
+
       if (val && typeof val === "object") {
         if (Array.isArray(val)) {
           for (const v of val) {

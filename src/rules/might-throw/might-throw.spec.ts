@@ -57,3 +57,23 @@ await testFile(
 );
 await testFile("src/rules/might-throw/tests/generic-ok.ts", [rule.name], []);
 await testFile("src/rules/might-throw/tests/tsx-ok.tsx", [rule.name], []);
+await testFile(
+  "src/rules/might-throw/tests/native-funcs-err.ts",
+  [rule.name],
+  [
+    {
+      messageId: "mightThrow",
+      line: 4,
+    },
+  ]
+);
+await testFile(
+  "src/rules/might-throw/tests/native-funcs-err-2.ts",
+  [rule.name],
+  [
+    {
+      messageId: "mightThrow",
+      line: 4,
+    },
+  ]
+);

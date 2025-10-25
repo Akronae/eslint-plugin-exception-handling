@@ -10,7 +10,11 @@ export function resolveFunc(
 ) {
   const resolved = resolveId(id, context);
   if (!resolved?.id) return;
-  const func = findInParent(resolved.id, isFunctionDeclaration);
+  const func = findInParent(
+    resolved.id,
+    isFunctionDeclaration,
+    (x) => x.id?.name === id.name
+  );
   if (!func) return;
   return {
     func,
