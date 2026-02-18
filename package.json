@@ -37,7 +37,7 @@
     "v:patch": "npm version patch -m \"chore: bump patch to %s\""
   },
   "dependencies": {
-    "eslint": "^9.39.2"
+    "eslint": "^10.0.0"
   },
   "devDependencies": {
     "@types/eslint": "^9.6.1",
@@ -45,10 +45,10 @@
     "@types/node": "^25.0.9",
     "@types/react": "^18.3.12",
     "@typescript-eslint/eslint-plugin": "^8.53.0",
-    "@typescript-eslint/parser": "^8.53.0",
-    "@typescript-eslint/rule-tester": "^8.53.0",
-    "@typescript-eslint/types": "^8.53.0",
-    "@typescript-eslint/utils": "^8.53.0",
+    "@typescript-eslint/parser": "^8.56.0",
+    "@typescript-eslint/rule-tester": "^8.56.0",
+    "@typescript-eslint/types": "^8.56.0",
+    "@typescript-eslint/utils": "^8.56.0",
     "eslint-doc-generator": "^1.7.1",
     "eslint-plugin-react": "^7.37.5",
     "espree": "^10.1.0",
@@ -58,7 +58,7 @@
     "tsc": "^2.0.4",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.53.0",
+    "typescript-eslint": "^8.56.0",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0"
   },

@@ -9,7 +9,7 @@ function cleanTsConfig(content: string) {
       // Remove comments
       .replace(
         /(?:\r\n|\n|^)(?:[^'"])*?(?:'(?:[^\r\n\\']|\\'|[\\]{2})*'|"(?:[^\r\n\\"]|\\"|[\\]{2})*")*?(?:[^'"])*?(\/\*(?:[\s\S]*?)\*\/|\/\/.*)/g,
-        ""
+        "",
       )
       // Remove trailing commas
       .replace(/,(\s+\])/gm, "$1")
@@ -26,7 +26,7 @@ function resolveTSAlias(tsconfigpath: string, to: string, cwd: string) {
     // sorting by longest - most qualified - alias
     .sort((a, b) => b[0].length - a[0].length)
     .find(
-      ([key]) => to.startsWith(key) || to.startsWith(key.replace(/\*$/, ""))
+      ([key]) => to.startsWith(key) || to.startsWith(key.replace(/\*$/, "")),
     );
 
   if (res) {
@@ -49,7 +49,7 @@ function endsWithAny(str: string, arr: string[]) {
 
 export function getImportDeclaration(
   context: RuleContext<string, unknown[]>,
-  impt: TSESTree.ImportDeclaration
+  impt: TSESTree.ImportDeclaration,
 ) {
   const from = context.physicalFilename;
   let to = impt.source.value;
@@ -57,7 +57,9 @@ export function getImportDeclaration(
   let res: string | null = null;
 
   if (!to.startsWith(".")) {
-    let { project, tsconfigRootDir } = context.parserOptions;
+    let { project, tsconfigRootDir } =
+      context.parserOptions ?? context.languageOptions?.parserOptions;
+
     if (project || tsconfigRootDir) {
       if (project === true || !project) project = "./tsconfig.json";
       if (Array.isArray(project)) project = project[0];
