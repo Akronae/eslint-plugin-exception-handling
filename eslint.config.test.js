@@ -2,7 +2,7 @@
 
 import tseslint from "typescript-eslint";
 import { plugin as ex } from "./dist/src/index.js";
-import config from "./eslint.config.js";
+import config from "./eslint.config.mjs";
 
 const ignores = [
   "node_modules",

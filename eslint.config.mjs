@@ -1,6 +1,8 @@
 // @ts-check
 
+import path from "path";
 import tseslint from "typescript-eslint";
+import { fileURLToPath } from "url";
 
 const ignores = [
   "node_modules",
@@ -15,6 +17,8 @@ const ignores = [
   "vitest.config.js",
 ];
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 export default tseslint.config(
   ...tseslint.configs.recommended.map((x) => ({ ...x, ignores })),
   {
@@ -22,7 +26,7 @@ export default tseslint.config(
       parserOptions: {
         parser: "@typescript-eslint/parser",
         project: "./tsconfig.json",
-        tsconfigRootDir: "./",
+        tsconfigRootDir: __dirname,
       },
     },
     files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
@@ -36,5 +40,5 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-expressions": "error",
       "@typescript-eslint/no-explicit-any": "off",
     },
-  }
+  },
 );

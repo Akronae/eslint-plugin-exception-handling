@@ -53,6 +53,8 @@ export default tseslint.config(
 );
 ```
 
+Note: if you're using the new eslint `defineConfig` helper, you might need to cast the plugin `as any` during this transition period until `typescript-eslint` catches up.
+
 For JavaScript:
 
 ```js
@@ -72,7 +74,6 @@ export default [
 # Limitations & Caveats
 
 - This plugin only checks for functions that might throw exceptions. It does not check for functions that might return a rejected promise.
-- Currently, only user-defined functions are checked. This means that built-in functions that might throw exceptions are not yet linted. I'm working on a feature for that, but it's quite a grind to list all the built-in functions that might throw exceptions. If you want to help feel free to open a PR.
 
 # Rules
 
