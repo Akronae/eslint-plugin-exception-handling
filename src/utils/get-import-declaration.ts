@@ -110,7 +110,7 @@ export function getImportDeclaration(
   }
 
   if (!existsSync(res)) {
-    for (const [ext, alternatives] of Object.entries(EXTENSION_ALTERNATIVES)) {
+    for (const [ext, alternatives] of Object.entries(extAlts)) {
         if (res.endsWith(ext)) {
             res = findFileExtension(res.slice(0, -ext.length), alternatives);
             break;
