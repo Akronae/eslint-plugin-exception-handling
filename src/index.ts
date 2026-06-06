@@ -8,7 +8,7 @@ import useErrorCause from "./rules/use-error-cause/use-error-cause";
 type RuleKey = keyof typeof rules;
 
 interface Plugin extends Omit<ESLint.Plugin, "rules"> {
-  rules: Record<RuleKey, RuleModule<string>>;
+  rules: Record<string, RuleDefinition<RuleDefinitionTypeOptions>>;
 }
 
 export const name = "eslint-plugin-exception-handling";
