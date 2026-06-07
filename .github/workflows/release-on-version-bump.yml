@@ -23,7 +23,7 @@ jobs:
       - run: yarn install
       - run: yarn test
       - run: yarn build
-      - run: npm publish
+      - run: npm publish --provenance --access public
       - uses: Makepad-fr/auto-release-on-version-bump-action@0.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
