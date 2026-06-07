@@ -3,19 +3,19 @@ import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 type Typed = TSESTree.Node | null | undefined;
 
 export function isFunctionDeclaration(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.FunctionDeclaration {
   return node != null && node.type === AST_NODE_TYPES.FunctionDeclaration;
 }
 
 export function isMethodDefinition(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.MethodDefinition {
   return node != null && node.type === AST_NODE_TYPES.MethodDefinition;
 }
 
 export function isMemberExpression(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.MemberExpression {
   return node != null && node.type === AST_NODE_TYPES.MemberExpression;
 }
@@ -25,25 +25,25 @@ export function isTryStatement(node: Typed): node is TSESTree.TryStatement {
 }
 
 export function isImportDeclaration(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.ImportDeclaration {
   return node != null && node.type === AST_NODE_TYPES.ImportDeclaration;
 }
 
 export function isImportSpecifier(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.ImportSpecifier {
   return node != null && node.type === AST_NODE_TYPES.ImportSpecifier;
 }
 
 export function isVariableDeclaration(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.VariableDeclaration {
   return node != null && node.type === AST_NODE_TYPES.VariableDeclaration;
 }
 
 export function isVariableDeclarator(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.VariableDeclarator {
   return node != null && node.type === AST_NODE_TYPES.VariableDeclarator;
 }
@@ -57,7 +57,7 @@ export function isProgram(node: Typed): node is TSESTree.Program {
 }
 
 export function isExportNamedDeclaration(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.ExportNamedDeclaration {
   return node != null && node.type === AST_NODE_TYPES.ExportNamedDeclaration;
 }
@@ -75,7 +75,7 @@ export function isIdentifier(node: Typed): node is TSESTree.Identifier {
 }
 
 export function isPrivateIdentifier(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.PrivateIdentifier {
   return node != null && node.type === AST_NODE_TYPES.PrivateIdentifier;
 }
@@ -89,7 +89,7 @@ export function isNewExpression(node: Typed): node is TSESTree.NewExpression {
 }
 
 export function isObjectExpression(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.ObjectExpression {
   return node != null && node.type === AST_NODE_TYPES.ObjectExpression;
 }
@@ -99,19 +99,25 @@ export function isProperty(node: Typed): node is TSESTree.Property {
 }
 
 export function isClassDeclaration(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.ClassDeclaration {
   return node != null && node.type === AST_NODE_TYPES.ClassDeclaration;
 }
 
 export function isArrowFunctionExpression(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.ArrowFunctionExpression {
   return node != null && node.type === AST_NODE_TYPES.ArrowFunctionExpression;
 }
 
+export function isFunctionExpression(
+  node: Typed,
+): node is TSESTree.FunctionExpression {
+  return node != null && node.type === AST_NODE_TYPES.FunctionExpression;
+}
+
 export function isExpressionStatement(
-  node: Typed
+  node: Typed,
 ): node is TSESTree.ExpressionStatement {
   return node != null && node.type === AST_NODE_TYPES.ExpressionStatement;
 }

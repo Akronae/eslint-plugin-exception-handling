@@ -1,12 +1,19 @@
 import {
   exploreChildren,
+  findIdentifierInParents,
   findInChildren,
   findInParent,
   getFunctionId,
+  isArrowFunctionExpression,
   isCallExpression,
   isCatchClause,
+  isFunctionExpression,
+  isMemberExpression,
+  isObjectExpression,
+  isProperty,
   isThrowStatement,
   isTryStatement,
+  isVariableDeclarator,
   resolveFunc,
 } from "@/src/utils";
 import { nativeThrowing } from "@/src/utils/native-throwing";
@@ -19,7 +26,7 @@ const scannedFunctions = new Set<string>();
 
 const getNodeId = (
   node: TSESTree.Node,
-  context: RuleContext<string, unknown[]>
+  context: RuleContext<string, unknown[]>,
 ) =>
   [
     node.type,
@@ -39,9 +46,44 @@ export function canFuncThrowClear() {
 
 const checked: Record<string, boolean> = {};
 
+function resolveMemberExprInlineFunc(
+  prop: TSESTree.Identifier,
+  _context: RuleContext<string, unknown[]>,
+): TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression | undefined {
+  const memberExpr = prop.parent;
+  if (
+    !isMemberExpression(memberExpr) ||
+    memberExpr.property !== prop ||
+    memberExpr.computed
+  ) {
+    return undefined;
+  }
+  if (!isIdentifier(memberExpr.object)) return undefined;
+
+  const objId = findIdentifierInParents(
+    memberExpr.object.name,
+    memberExpr.object,
+  );
+  if (!objId?.parent || !isVariableDeclarator(objId.parent)) return undefined;
+  const init = objId.parent.init;
+  if (!isObjectExpression(init)) return undefined;
+
+  for (const p of init.properties) {
+    if (
+      isProperty(p) &&
+      isIdentifier(p.key) &&
+      p.key.name === prop.name &&
+      (isFunctionExpression(p.value) || isArrowFunctionExpression(p.value))
+    ) {
+      return p.value;
+    }
+  }
+  return undefined;
+}
+
 export function canFuncThrow(
   node: TSESTree.Identifier | TSESTree.PrivateIdentifier,
-  context: RuleContext<string, unknown[]>
+  context: RuleContext<string, unknown[]>,
 ): boolean {
   const nodeId = getNodeId(node, context);
   if (checked[nodeId] != undefined) return checked[nodeId];
@@ -51,10 +93,19 @@ export function canFuncThrow(
     return false;
   }
 
+  if (isIdentifier(node)) {
+    const inlineFunc = resolveMemberExprInlineFunc(node, context);
+    if (inlineFunc !== undefined) {
+      const scanRes = scanfunc(inlineFunc, context);
+      checked[nodeId] = scanRes;
+      return scanRes;
+    }
+  }
+
   const res = resolveFunc(node, context);
   if (res?.module) {
     const found = nativeThrowing.some(
-      (x) => x.module === res.module && x.method === res.func.id?.name
+      (x) => x.module === res.module && x.method === res.func.id?.name,
     );
     if (found) {
       checked[nodeId] = true;
@@ -73,8 +124,11 @@ export function canFuncThrow(
 }
 
 function scanfunc(
-  node: TSESTree.FunctionDeclaration,
-  context: RuleContext<string, unknown[]>
+  node:
+    | TSESTree.FunctionDeclaration
+    | TSESTree.FunctionExpression
+    | TSESTree.ArrowFunctionExpression,
+  context: RuleContext<string, unknown[]>,
 ): boolean {
   const throws = exploreChildren<boolean>(node, (child, parent_, resolve) => {
     const try_ = findInParent(child, isTryStatement);

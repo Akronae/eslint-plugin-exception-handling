@@ -8,7 +8,7 @@ await testFile(
     {
       messageId: "noUnhandled",
     },
-  ]
+  ],
 );
 await testFile("src/rules/no-unhandled/tests/import-ok.ts", [rule.name], []);
 await testFile("src/rules/no-unhandled/tests/import-ok-2.ts", [rule.name], []);
@@ -21,7 +21,7 @@ await testFile(
     {
       messageId: "noUnhandled",
     },
-  ]
+  ],
 );
 await testFile(
   "src/rules/no-unhandled/tests/basic-err-2.ts",
@@ -36,7 +36,7 @@ await testFile(
     {
       messageId: "noUnhandled",
     },
-  ]
+  ],
 );
 await testFile(
   "src/rules/no-unhandled/tests/basic-err-3.ts",
@@ -48,7 +48,7 @@ await testFile(
     {
       messageId: "noUnhandled",
     },
-  ]
+  ],
 );
 await testFile(
   "src/rules/no-unhandled/tests/basic-err-4.ts",
@@ -57,18 +57,18 @@ await testFile(
     {
       messageId: "noUnhandled",
     },
-  ]
+  ],
 );
 await testFile("src/rules/no-unhandled/tests/module-ok.ts", [rule.name], []);
 await testFile(
   "src/rules/no-unhandled/tests/private-identifier-ok.ts",
   [rule.name],
-  []
+  [],
 );
 await testFile(
   "src/rules/no-unhandled/tests/private-identifier-err.ts",
   [rule.name],
-  []
+  [],
 );
 await testFile("src/rules/no-unhandled/tests/recursive-ok.ts", [rule.name], []);
 await testFile(
@@ -83,7 +83,7 @@ await testFile(
       messageId: "noUnhandled",
       line: 16,
     },
-  ]
+  ],
 );
 await testFile(
   "src/rules/no-unhandled/tests/native-modules-err.ts",
@@ -93,12 +93,12 @@ await testFile(
       messageId: "noUnhandled",
       line: 3,
     },
-  ]
+  ],
 );
 await testFile(
   "src/rules/no-unhandled/tests/native-modules-ok.ts",
   [rule.name],
-  []
+  [],
 );
 await testFile(
   "src/rules/no-unhandled/tests/alias-err.ts",
@@ -108,11 +108,26 @@ await testFile(
       messageId: "noUnhandled",
       line: 54,
     },
-  ]
+  ],
 );
 await testFile("src/rules/no-unhandled/tests/alias-ok.ts", [rule.name], []);
 await testFile(
   "src/rules/no-unhandled/tests/array-destructuring-ok.ts",
   [rule.name],
-  []
+  [],
+);
+
+await testFile(
+  "src/rules/no-unhandled/tests/obj-err.ts",
+  [rule.name],
+  [
+    {
+      messageId: "noUnhandled",
+      line: 24,
+    },
+    {
+      messageId: "noUnhandled",
+      line: 26,
+    },
+  ],
 );
