@@ -19,7 +19,7 @@ import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 
 export const findIdentifiersInChildren = (
   name: string,
-  nodes: TSESTree.Node[]
+  nodes: TSESTree.Node[],
 ): TSESTree.Identifier[] => {
   const identifiers: TSESTree.Identifier[] = [];
   for (const node of nodes) {
@@ -54,7 +54,7 @@ export const findIdentifiersInChildren = (
       identifiers.push(...findIdentifiersInChildren(name, [...node.arguments]));
     } else if (isMemberExpression(node)) {
       identifiers.push(
-        ...findIdentifiersInChildren(name, [node.property, node.object])
+        ...findIdentifiersInChildren(name, [node.property, node.object]),
       );
     } else if (isClassDeclaration(node)) {
       if (node.id) {

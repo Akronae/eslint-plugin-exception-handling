@@ -153,7 +153,12 @@ export function canFuncThrow(
 function resolveClassMethod(
   node: TSESTree.Identifier,
   context: RuleContext<string, unknown[]>,
-): { func: TSESTree.FunctionExpression; context: RuleContext<string, unknown[]> } | undefined {
+):
+  | {
+      func: TSESTree.FunctionExpression;
+      context: RuleContext<string, unknown[]>;
+    }
+  | undefined {
   const memberExpr = node.parent;
   if (
     !isMemberExpression(memberExpr) ||
@@ -166,7 +171,8 @@ function resolveClassMethod(
   const objectId = memberExpr.object;
 
   const objDecl = findIdentifierInParents(objectId.name, objectId);
-  if (!objDecl?.parent || !isVariableDeclarator(objDecl.parent)) return undefined;
+  if (!objDecl?.parent || !isVariableDeclarator(objDecl.parent))
+    return undefined;
 
   const init = objDecl.parent.init;
   if (!isNewExpression(init) || !isIdentifier(init.callee)) return undefined;
@@ -223,7 +229,12 @@ function buildImportedFileContext(
 function resolveImportedFunc(
   node: TSESTree.Identifier,
   context: RuleContext<string, unknown[]>,
-): { func: TSESTree.FunctionDeclaration; context: RuleContext<string, unknown[]> } | undefined {
+):
+  | {
+      func: TSESTree.FunctionDeclaration;
+      context: RuleContext<string, unknown[]>;
+    }
+  | undefined {
   const memberExpr = node.parent;
   if (!isMemberExpression(memberExpr) || memberExpr.property !== node) {
     return undefined;
