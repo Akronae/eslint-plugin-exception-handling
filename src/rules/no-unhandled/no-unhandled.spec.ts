@@ -10,6 +10,24 @@ await testFile(
     },
   ],
 );
+await testFile(
+  "src/rules/no-unhandled/tests/import-err-1.ts",
+  [rule.name],
+  [
+    {
+      messageId: "noUnhandled",
+      line: 5,
+    },
+    {
+      messageId: "noUnhandled",
+      line: 7,
+    },
+    {
+      messageId: "noUnhandled",
+      line: 9,
+    },
+  ],
+);
 await testFile("src/rules/no-unhandled/tests/import-ok.ts", [rule.name], []);
 await testFile("src/rules/no-unhandled/tests/import-ok-2.ts", [rule.name], []);
 await testFile("src/rules/no-unhandled/tests/basic-ok.ts", [rule.name], []);
@@ -128,6 +146,21 @@ await testFile(
     {
       messageId: "noUnhandled",
       line: 26,
+    },
+  ],
+);
+
+await testFile(
+  "src/rules/no-unhandled/tests/class-err.ts",
+  [rule.name],
+  [
+    {
+      messageId: "noUnhandled",
+      line: 32,
+    },
+    {
+      messageId: "noUnhandled",
+      line: 33,
     },
   ],
 );

@@ -1,4 +1,4 @@
-import { isFunctionDeclaration } from "@/src/utils/ast-guards";
+import { isFunctionDeclaration, isFunctionExpression, isMethodDefinition } from "@/src/utils/ast-guards";
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import { findInParent } from "./find-in-parent";
@@ -15,11 +15,26 @@ export function resolveFunc(
     isFunctionDeclaration,
     (x) => x.id?.name === id.name
   );
-  if (!func) return;
-  return {
-    func,
-    module: resolved.module,
-    protocol: resolved.protocol,
-    context: resolved.context,
-  };
+  if (func) {
+    return {
+      func,
+      module: resolved.module,
+      protocol: resolved.protocol,
+      context: resolved.context,
+    };
+  }
+  const methodDef = resolved.id.parent;
+  if (
+    isMethodDefinition(methodDef) &&
+    methodDef.key === resolved.id &&
+    isFunctionExpression(methodDef.value)
+  ) {
+    return {
+      func: methodDef.value,
+      module: resolved.module,
+      protocol: resolved.protocol,
+      context: resolved.context,
+    };
+  }
+  return;
 }

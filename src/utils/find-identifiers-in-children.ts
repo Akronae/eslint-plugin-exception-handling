@@ -2,12 +2,14 @@ import {
   isArrowFunctionExpression,
   isBlockStatement,
   isCallExpression,
+  isClassDeclaration,
   isExportNamedDeclaration,
   isExpressionStatement,
   isFunctionDeclaration,
   isImportDeclaration,
   isImportSpecifier,
   isMemberExpression,
+  isMethodDefinition,
   isProgram,
   isVariableDeclaration,
   isVariableDeclarator,
@@ -54,6 +56,15 @@ export const findIdentifiersInChildren = (
       identifiers.push(
         ...findIdentifiersInChildren(name, [node.property, node.object])
       );
+    } else if (isClassDeclaration(node)) {
+      if (node.id) {
+        identifiers.push(...findIdentifiersInChildren(name, [node.id]));
+      }
+      for (const member of node.body.body) {
+        if (isMethodDefinition(member)) {
+          identifiers.push(...findIdentifiersInChildren(name, [member.key]));
+        }
+      }
     }
   }
 

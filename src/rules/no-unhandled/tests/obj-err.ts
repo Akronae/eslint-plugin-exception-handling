@@ -4,7 +4,7 @@ function b() {
   throw new Error("error");
 }
 
-const obj = {
+export const obj = {
   deep: {
     1: {
       a,
