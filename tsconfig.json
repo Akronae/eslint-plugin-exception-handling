@@ -8,9 +8,8 @@
     "declaration": true,
     "outDir": "./dist",
     "allowJs": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "strict": true,
-    "baseUrl": "./",
     "rootDir": "./",
     "paths": {
       "@/*": ["./*"]

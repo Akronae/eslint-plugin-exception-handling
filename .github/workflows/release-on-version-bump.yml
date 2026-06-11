@@ -5,22 +5,26 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
 jobs:
   publish-on-release:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
           registry-url: "https://registry.npmjs.org"
-      - run: yarn
+          cache: "yarn"
+      - run: yarn install
       - run: yarn test
       - run: yarn build
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm install -g npm@latest
+      - run: npm publish --provenance --access public
       - uses: Makepad-fr/auto-release-on-version-bump-action@0.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

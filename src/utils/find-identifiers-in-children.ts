@@ -2,12 +2,14 @@ import {
   isArrowFunctionExpression,
   isBlockStatement,
   isCallExpression,
+  isClassDeclaration,
   isExportNamedDeclaration,
   isExpressionStatement,
   isFunctionDeclaration,
   isImportDeclaration,
   isImportSpecifier,
   isMemberExpression,
+  isMethodDefinition,
   isProgram,
   isVariableDeclaration,
   isVariableDeclarator,
@@ -17,7 +19,7 @@ import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 
 export const findIdentifiersInChildren = (
   name: string,
-  nodes: TSESTree.Node[]
+  nodes: TSESTree.Node[],
 ): TSESTree.Identifier[] => {
   const identifiers: TSESTree.Identifier[] = [];
   for (const node of nodes) {
@@ -52,8 +54,17 @@ export const findIdentifiersInChildren = (
       identifiers.push(...findIdentifiersInChildren(name, [...node.arguments]));
     } else if (isMemberExpression(node)) {
       identifiers.push(
-        ...findIdentifiersInChildren(name, [node.property, node.object])
+        ...findIdentifiersInChildren(name, [node.property, node.object]),
       );
+    } else if (isClassDeclaration(node)) {
+      if (node.id) {
+        identifiers.push(...findIdentifiersInChildren(name, [node.id]));
+      }
+      for (const member of node.body.body) {
+        if (isMethodDefinition(member)) {
+          identifiers.push(...findIdentifiersInChildren(name, [member.key]));
+        }
+      }
     }
   }
 
