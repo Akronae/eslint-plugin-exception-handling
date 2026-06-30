@@ -41,7 +41,25 @@ function resolveTSAlias(tsconfigpath: string, to: string, cwd: string) {
   return to;
 }
 
-const codeExt = [".ts", ".js", ".tsx", ".jsx"];
+const codeExt = [".ts", ".js", ".tsx", ".jsx", ".mjs", ".mjsx", ".mts", ".mtsx",  ".cjs", ".cjsx", ".cts", ".ctsx"];
+const extAlts = {
+    // Base family
+    ".js":   [".jsx", ".ts", ".tsx"],
+    ".jsx":  [".js",  ".tsx", ".ts"],
+    ".ts":   [".tsx", ".js", ".jsx"],
+    ".tsx":  [".ts",  ".jsx", ".js"],
+    // ESM-explicit family (m*)
+    ".mjs":  [".mts", ".mjsx", ".mtsx"],
+    ".mjsx": [".mjs", ".mtsx", ".mts"],
+    ".mts":  [".mtsx", ".mjs", ".mjsx"],
+    ".mtsx": [".mts", ".mjsx", ".mjs"],
+    // CJS-explicit family (c*)
+    ".cjs":  [".cts", ".cjsx", ".ctsx"],
+    ".cjsx": [".cjs", ".ctsx", ".cts"],
+    ".cts":  [".ctsx", ".cjs", ".cjsx"],
+    ".ctsx": [".cts", ".cjsx", ".cjs"],
+};
+
 
 function endsWithAny(str: string, arr: string[]) {
   return arr.some((ext) => str.endsWith(ext));
@@ -92,14 +110,11 @@ export function getImportDeclaration(
   }
 
   if (!existsSync(res)) {
-    if (res.endsWith(".js")) {
-      res = findFileExtension(res.replace(".js", ""), [".jsx", ".ts", ".tsx"]);
-    } else if (res.endsWith(".jsx")) {
-      res = findFileExtension(res.replace(".jsx", ""), [".js", ".tsx", ".ts"]);
-    } else if (res.endsWith(".ts")) {
-      res = findFileExtension(res.replace(".ts", ""), [".tsx", ".js", ".jsx"]);
-    } else if (res.endsWith(".tsx")) {
-      res = findFileExtension(res.replace(".tsx", ""), [".ts", ".jsx", ".js"]);
+    for (const [ext, alternatives] of Object.entries(extAlts)) {
+        if (res.endsWith(ext)) {
+            res = findFileExtension(res.slice(0, -ext.length), alternatives);
+            break;
+        }
     }
   }
 

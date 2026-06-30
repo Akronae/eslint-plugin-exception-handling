@@ -1,18 +1,12 @@
-import { RuleModule } from "@typescript-eslint/utils/ts-eslint";
 import { ESLint } from "eslint";
 import { rules } from "./rules";
 import noUnhandled from "./rules/no-unhandled/no-unhandled";
 import mightThrow from "./rules/might-throw/might-throw";
 import useErrorCause from "./rules/use-error-cause/use-error-cause";
 
-type RuleKey = keyof typeof rules;
-
-interface Plugin extends Omit<ESLint.Plugin, "rules"> {
-  rules: Record<RuleKey, RuleModule<string>>;
-}
-
 export const name = "eslint-plugin-exception-handling";
-export const plugin: Plugin = {
+
+export const plugin: ESLint.Plugin = {
   meta: {
     name,
     version: "1.0.0",
@@ -27,7 +21,7 @@ export const plugin: Plugin = {
       },
     },
   },
-  rules,
+  rules: rules as unknown as ESLint.Plugin["rules"],
 };
 
 export { rules };
